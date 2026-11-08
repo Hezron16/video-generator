@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Generate short AI video clips from text.">
+  <title>AI Video Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://js.puter.com/v2/"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <h1>AI Video Generator</h1>
+      <p>Describe a scene and get a short AI video clip.</p>
+    </header>
+
+    <form id="video-form" class="form" novalidate>
+      <label for="prompt" class="visually-hidden">Video prompt</label>
+      <textarea
+        id="prompt"
+        rows="4"
+        maxlength="600"
+        placeholder="A fox sprinting through a snow-covered forest at dusk, cinematic, slow motion"
+        required></textarea>
+
+      <div class="options">
+        <div class="field">
+          <label for="model">Model</label>
+          <select id="model">
+            <option value="">Default (Wan 2.7)</option>
+            <option value="sora-2">Sora 2</option>
+            <option value="sora-2-pro">Sora 2 Pro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="seconds">Length</label>
+          <select id="seconds">
+            <option value="">Model default</option>
+            <option value="4">4 seconds</option>
+            <option value="8">8 seconds</option>
+            <option value="12">12 seconds</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="test-mode" checked>
+        <span>Test mode (returns a sample video and uses no credits)</span>
+      </label>
+
+      <div class="form__footer">
+        <span id="char-count" class="form__count">0 / 600</span>
+        <button id="generate-btn" type="submit" class="btn">Generate video</button>
+      </div>
+    </form>
+
+    <p id="error" class="error" role="alert" hidden></p>
+
+    <section class="display" aria-live="polite" aria-busy="false">
+      <div id="placeholder" class="display__placeholder">Your video will appear here</div>
+      <div id="spinner" class="spinner" role="status" hidden>
+        <span class="spinner__ring"></span>
+        <span id="spinner-label">Generating video…</span>
+        <small>Real videos can take a few minutes. Keep this tab open.</small>
+      </div>
+      <div id="result" class="result" hidden>
+        <video id="player" controls playsinline loop></video>
+        <a id="download-link" class="btn btn--ghost" download="video.mp4">Download video</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
